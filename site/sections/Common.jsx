@@ -131,34 +131,25 @@ function SectionHead({ eyebrow, title, sub, align = 'left', dark = false }) {
 }
 
 // ヘッダー(全案共通の上部ナビ)
+// PC: ロゴ + ナビ4項目 + CTA
+// SP (767px以下): ロゴ + CTAのみ
+// 常時 sticky (LP最上部に固定表示)
 function SiteHeader({ dark = false }) {
   return (
-    <header style={{
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      padding: '20px 56px',
-      borderBottom: `1px solid ${dark ? 'rgba(255,255,255,0.1)' : '#e8e8e8'}`,
-      background: dark ? 'transparent' : 'rgba(252,252,252,0.85)',
-      backdropFilter: 'blur(8px)',
-    }}>
-      <a href="#top" style={{ textDecoration: 'none' }}><MierunLogo size={26} mono={false} /></a>
-      <nav style={{ display: 'flex', gap: 32, alignItems: 'center' }}>
+    <header className={`mierun site-header ${dark ? 'site-header--dark' : ''}`}>
+      <a href="#top" className="site-header__logo" style={{ textDecoration: 'none' }}>
+        <MierunLogo size={26} mono={false} />
+      </a>
+      <nav className="site-header__nav">
         {[
           { label: '特徴', href: '#features' },
           { label: '導入フロー', href: '#flow' },
           { label: '料金', href: '#contact' },
           { label: 'よくある質問', href: '#faq' },
         ].map(item => (
-          <a key={item.label} href={item.href} style={{
-            fontSize: 17,
-            fontWeight: 600,
-            color: dark ? '#FFF3D6' : '#0E0A2E',
-            textDecoration: 'none',
-            opacity: 0.85,
-          }}>{item.label}</a>
+          <a key={item.label} href={item.href} className="site-header__link">{item.label}</a>
         ))}
-        <a href="#contact" className="btn-primary" style={{ padding: '10px 20px', fontSize: 16, textDecoration: 'none' }}>
+        <a href="#contact" className="btn-primary site-header__cta">
           無料デモを予約
         </a>
       </nav>
@@ -169,19 +160,15 @@ function SiteHeader({ dark = false }) {
 // フッター
 function SiteFooter() {
   return (
-    <footer style={{
-      background: 'var(--c-footer-bg)',
-      color: '#ffffff',
-      padding: '60px 56px 28px',
-    }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 40, alignItems: 'flex-start' }}>
-        <div style={{ maxWidth: 280 }}>
+    <footer className="site-footer">
+      <div className="site-footer__top">
+        <div className="site-footer__brand">
           <a href="#top" style={{ textDecoration: 'none', color: 'inherit' }}><MierunLogo size={28} mono /></a>
-          <p style={{ marginTop: 16, fontSize: 16, opacity: 0.7, lineHeight: 1.7 }}>
+          <p className="site-footer__tagline">
             良品サンプル1枚から始める<br/>AI外観検査ソリューション
           </p>
         </div>
-        <div style={{ display: 'flex', gap: 60 }}>
+        <div className="site-footer__cols">
           {[
             { title: 'Product', items: [
               { label: '特徴', href: '#features' },
@@ -201,29 +188,20 @@ function SiteFooter() {
               { label: '特定商取引法', href: '#' },
             ]},
           ].map(col => (
-            <div key={col.title}>
-              <div className="en" style={{ fontSize: 16, fontWeight: 700, opacity: 0.5, marginBottom: 14 }}>{col.title.toUpperCase()}</div>
+            <div key={col.title} className="site-footer__col">
+              <div className="en site-footer__col-title">{col.title.toUpperCase()}</div>
               {col.items.map(it => (
                 <a
                   key={it.label}
                   href={it.href}
-                  className="footer-link"
-                  style={{ display: 'block', fontSize: 16, marginBottom: 10, opacity: 0.85, color: 'inherit', textDecoration: 'none', transition: 'opacity 0.15s, color 0.15s' }}
+                  className="footer-link site-footer__link"
                 >{it.label}</a>
               ))}
             </div>
           ))}
         </div>
       </div>
-      <div style={{
-        marginTop: 48,
-        paddingTop: 24,
-        borderTop: '1px solid rgba(255,255,255,0.12)',
-        display: 'flex',
-        justifyContent: 'space-between',
-        fontSize: 16,
-        opacity: 0.5,
-      }}>
+      <div className="site-footer__bottom">
         <span className="en">© 2026 Will Group Co., Ltd. All Rights Reserved.</span>
         <span>mierun.jp</span>
       </div>

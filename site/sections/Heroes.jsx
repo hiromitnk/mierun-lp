@@ -198,10 +198,10 @@ function HeroB() {
 }
 
 // ========== HERO 案C: 「間違い探し」メタファー(Before/Afterサイドバイサイド) ==========
+// NOTE: SiteHeader は Stitched の .lp-frame 直下に別途配置(sticky固定のため)
 function HeroC() {
   return (
     <div className="mierun" style={{ width: 1280, minHeight: 720 }}>
-      <SiteHeader />
       <section style={{ padding: '64px 56px 80px', textAlign: 'center' }}>
         <div className="chip" style={{ background: '#FFF', color: '#203954', fontSize: 16, padding: '10px 20px' }}>
           <span style={{ width: 8, height: 8, background: '#B8CE52', borderRadius: '50%' }} />
@@ -238,14 +238,14 @@ function HeroC() {
               <InspectionPreview width="100%" height={240} status="ok" label="REF" />
             </div>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
-            <div style={{
+          <div className="compare-badge" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+            <div className="compare-badge__circle" style={{
               width: 56, height: 56, borderRadius: '50%',
               background: '#FE5E32',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               boxShadow: '0 4px 0 #C6411E, 0 12px 24px -8px rgba(254,94,50,0.5)',
             }}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="compare-badge__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </div>

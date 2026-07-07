@@ -213,21 +213,20 @@ function EnclosureDrawing({ spec, accent }) {
     return <Enclosure3DViewer spec={spec} accent={accent} visW={visW} visH={visH} />;
   }
 
-  // LARGE サイズ: PDF図面から生成した線画を使用。寸法ラベルは3D側と統一スタイル
+  // LARGE サイズ: 実写レンダー画像を使用。寸法ラベルは3D側と統一スタイル
   const boxW = visW + 80;
   const boxH = visH + 40;
   return (
     <div style={{ position: 'relative', width: '100%', maxWidth: boxW, height: boxH }}>
-      {/* 線画本体 */}
+      {/* 筐体本体 (実写風レンダー) */}
       <img
-        src="assets/enclosure-large-line.png"
-        alt="大サイズ筐体 線画"
+        src="assets/enclosure-large-render.png"
+        alt="大サイズ筐体"
         style={{
           position: 'absolute',
           left: 0, top: 0,
           width: '100%', height: '100%',
           objectFit: 'contain',
-          mixBlendMode: 'multiply',
         }}
       />
       {/* 寸法ラベル: 標準サイズの3Dビューワーと統一 */}

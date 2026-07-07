@@ -42,12 +42,275 @@
       0 24px 56px -16px rgba(20, 30, 50, 0.35),    /* 主シャドウ */
       0 48px 120px -40px rgba(20, 30, 50, 0.45),   /* 拡散シャドウ */
       0 0 0 1px rgba(20, 30, 50, 0.08);            /* 微細な縁 */
+    /* 万一の横はみ出しを防ぐ(sticky ヘッダーは body スクロール基準なので効く) */
+    overflow-x: hidden;
+  }
+  /* 日本語の長い文字列でも必ず折り返す */
+  .mierun p, .mierun h1, .mierun h2, .mierun h3, .mierun li, .mierun span {
+    overflow-wrap: anywhere;
   }
   .lp-frame > div { width: 100% !important; }
   .lp-frame .mierun { width: 100% !important; max-width: 100% !important; }
 
+  /* ============================================
+     ヘッダー: 全画面幅で sticky 固定
+     - PC: ロゴ + ナビ4項目 + CTA
+     - SP (≤767px): ロゴ + CTA のみ
+     ============================================ */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 56px;
+    background: rgba(252, 252, 252, 0.9);
+    backdrop-filter: saturate(1.4) blur(10px);
+    -webkit-backdrop-filter: saturate(1.4) blur(10px);
+    border-bottom: 1px solid #e8e8e8;
+  }
+  .site-header--dark {
+    background: rgba(14, 10, 46, 0.7);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+  .site-header__logo { display: inline-flex; align-items: center; }
+  .site-header__nav {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+  }
+  .site-header__link {
+    font-size: 15px;
+    font-weight: 600;
+    color: #0E0A2E;
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.15s;
+  }
+  .site-header__link:hover { opacity: 1; }
+  .site-header--dark .site-header__link { color: #FFF3D6; }
+  .site-header__cta {
+    padding: 10px 20px !important;
+    font-size: 15px !important;
+    text-decoration: none;
+  }
+
+  /* タブレット寄り: ナビリンクの間隔を詰める */
+  @media (max-width: 1024px) {
+    .site-header { padding: 14px 32px; }
+    .site-header__nav { gap: 20px; }
+    .site-header__link { font-size: 14px; }
+  }
+
+  /* ============================================
+     フッター
+     ============================================ */
+  .site-footer {
+    background: var(--c-footer-bg, #0E0A2E);
+    color: #ffffff;
+    padding: 60px 56px 28px;
+  }
+  .site-footer__top {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .site-footer__brand { max-width: 280px; }
+  .site-footer__tagline {
+    margin-top: 16px;
+    font-size: 16px;
+    opacity: 0.7;
+    line-height: 1.7;
+  }
+  .site-footer__cols {
+    display: flex;
+    gap: 60px;
+    flex-wrap: wrap;
+  }
+  .site-footer__col-title {
+    font-size: 16px;
+    font-weight: 700;
+    opacity: 0.5;
+    margin-bottom: 14px;
+  }
+  .site-footer__link {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+    opacity: 0.85;
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.15s, color 0.15s;
+  }
+  .site-footer__bottom {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    opacity: 0.5;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 1024px) {
+    .site-footer { padding: 48px 32px 24px; }
+    .site-footer__cols { gap: 40px; }
+  }
+  @media (max-width: 767px) {
+    .site-footer {
+      padding: 40px 20px 24px;
+    }
+    .site-footer__top {
+      flex-direction: column;
+      gap: 32px;
+    }
+    .site-footer__brand { max-width: 100%; }
+    .site-footer__cols {
+      gap: 28px;
+      width: 100%;
+    }
+    .site-footer__col { flex: 1 1 40%; min-width: 40%; }
+    .site-footer__col-title { font-size: 14px; margin-bottom: 10px; }
+    .site-footer__link { font-size: 15px; margin-bottom: 8px; }
+    .site-footer__bottom {
+      margin-top: 32px;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13px;
+    }
+  }
+
+  /* スマホ: ナビリンクを隠してロゴ+CTAだけ */
+  @media (max-width: 767px) {
+    .site-header {
+      padding: 12px 16px;
+    }
+    .site-header__link { display: none; }
+    .site-header__nav { gap: 0; }
+    .site-header__cta {
+      padding: 9px 14px !important;
+      font-size: 13px !important;
+    }
+  }
+
   @media (max-width: 880px) {
     .lp-frame { margin: 16px auto; border-radius: 2px; }
+  }
+
+  /* ============================================
+     モバイル最適化 (幅767px以下)
+     React インラインstyle で組まれたグリッド・padding・フォントを一括で調整
+     ============================================ */
+  @media (max-width: 767px) {
+    /* mierun 内のセクション余白を圧縮 */
+    .mierun > section,
+    .mierun > div > section,
+    .lp-frame .mierun {
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+    }
+    /* セクション自体の上下余白も少し詰める */
+    .mierun section[style*="padding"] {
+      padding-top: 40px !important;
+      padding-bottom: 48px !important;
+    }
+    /* あらゆる grid を単列化 (2列以上を1列に) */
+    .mierun [style*="grid-template-columns"],
+    .mierun [style*="gridTemplateColumns"] {
+      grid-template-columns: 1fr !important;
+      gap: 16px !important;
+    }
+    /* Flow の3列 stats や FeatureCard 内の "num_stats" 系はキープしたい
+       → data属性か class で個別除外できるが、まずは全単列で。あとで例外調整可 */
+
+    /* ヒーロー h1 のフォントサイズを縮小 */
+    .mierun h1 {
+      font-size: 34px !important;
+      line-height: 1.28 !important;
+    }
+    .mierun h2 {
+      font-size: 26px !important;
+      line-height: 1.4 !important;
+    }
+    .mierun h3 {
+      font-size: 20px !important;
+    }
+    /* 長い英文 eyebrow は letter-spacing を詰める */
+    .mierun .eyebrow, .mierun .en {
+      letter-spacing: 0.08em !important;
+    }
+
+    /* Hero C のリード文が大きすぎる */
+    .mierun p[style*="font-size: 22"],
+    .mierun p[style*="fontSize: 22"] {
+      font-size: 16px !important;
+      line-height: 1.75 !important;
+    }
+
+    /* Before/After の中央COMPARE矢印を横向き→下向きに (SVG のみ回転) */
+    .mierun .compare-badge__arrow {
+      transform: rotate(90deg);
+    }
+
+    /* Enclosure の drawing box (400x440 固定) をカード幅に合わせる */
+    .mierun [style*="minHeight: 460"] {
+      min-height: 380px !important;
+      padding: 24px 12px 40px !important;
+    }
+    /* Enclosure の描画エリアラッパー (width固定 400) */
+    .mierun [style*="max-width: 400"] {
+      max-width: 100% !important;
+      height: 340px !important;
+    }
+
+    /* 各種カード内 padding も少し詰める */
+    .mierun [style*="padding: 28px 32px"],
+    .mierun [style*="padding: 28px 28px"],
+    .mierun [style*="padding: 32px"] {
+      padding: 20px !important;
+    }
+
+    /* SectionHead の sub テキスト max-width 制限を外す */
+    .mierun p[style*="max-width: 880"],
+    .mierun p[style*="maxWidth: 880"],
+    .mierun p[style*="max-width: 720"],
+    .mierun p[style*="maxWidth: 720"] {
+      max-width: 100% !important;
+      font-size: 16px !important;
+    }
+
+    /* Feature/Flow などのSVGイラストは幅を抑える */
+    .mierun svg[width][height] {
+      max-width: 100%;
+    }
+
+    /* EventBanner の日付など、大きい表示を少し縮小 */
+    .mierun [style*="font-size: 60"],
+    .mierun [style*="fontSize: 60"],
+    .mierun [style*="font-size: 72"],
+    .mierun [style*="fontSize: 72"],
+    .mierun [style*="font-size: 88"],
+    .mierun [style*="fontSize: 88"] {
+      font-size: 40px !important;
+    }
+    .mierun [style*="font-size: 48"],
+    .mierun [style*="fontSize: 48"],
+    .mierun [style*="font-size: 40"],
+    .mierun [style*="fontSize: 40"] {
+      font-size: 30px !important;
+    }
+    .mierun [style*="font-size: 36"],
+    .mierun [style*="fontSize: 36"] {
+      font-size: 24px !important;
+    }
+    .mierun [style*="font-size: 28"],
+    .mierun [style*="fontSize: 28"] {
+      font-size: 20px !important;
+    }
   }
 </style>
 <!-- 3Dビューワー(Google model-viewer) -->
@@ -100,7 +363,7 @@ function MierunStitched() {
     // .lp-frame > div:nth-child(N) でセクションの背景を上書き
     const bgAlt = t.zebra ? t.bgAlt : t.bgBase;
     style.textContent = `
-      .mierun .btn-primary, .mierun .btn-dark { font-size: ${s.fs}px !important; padding: ${s.py}px ${s.px}px !important; }
+      .mierun .btn-primary:not(.site-header__cta), .mierun .btn-dark { font-size: ${s.fs}px !important; padding: ${s.py}px ${s.px}px !important; }
       .mierun .btn-primary { background: ${t.accentColor} !important; box-shadow: 0 4px 0 ${shade(t.accentColor, -30)}, 0 12px 24px -8px ${alpha(t.accentColor, 0.5)} !important; }
       .mierun .btn-ghost { font-size: ${s.fs}px !important; padding: ${s.py-2}px ${s.px}px !important; border-color: ${t.primaryColor} !important; color: ${t.primaryColor} !important; }
       .mierun .btn-dark { background: ${t.primaryColor} !important; box-shadow: 0 4px 0 ${shade(t.primaryColor, -30)}, 0 12px 24px -8px ${alpha(t.primaryColor, 0.45)} !important; }
@@ -113,6 +376,7 @@ function MierunStitched() {
   return (
     <>
       <div className="lp-frame">
+        <SiteHeader />
         <div className="sec-base" id="top"><HeroC /></div>
         <div id="event"><EventBannerDxpo /></div>
         <div className="sec-alt" id="problems"><ProblemsA /></div>
