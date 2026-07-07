@@ -1,0 +1,165 @@
+/* mierun デザイントークン */
+:root {
+  /* Brand colors */
+  --c-dark-blue: #203954;
+  --c-dark-blue-90: #2B4A6B;
+  --c-dark-blue-70: #4A6B8A;
+  --c-footer-bg: #152838;  /* ダークブルー -20% / フッター専用の深いネイビー */
+  --c-orange: #FE5E32;
+  --c-orange-soft: #FF8866;
+  --c-cream: #fcfcfc;
+  --c-cream-deep: #f0f0f0;
+  --c-cream-pure: #FFF3D6;
+  --c-june: #B8CE52;
+  --c-june-soft: #D4E089;
+  --c-logo-teal: #4FA8C2;
+
+  /* Neutrals */
+  --c-ink: #0E0A2E;
+  --c-ink-70: #4A4664;
+  --c-ink-50: #7B768F;
+  --c-line: #e8e8e8;
+  --c-line-soft: #efefef;
+  --c-white: #FFFFFF;
+
+  /* Semantic */
+  --c-ok: #6FA830;
+  --c-ng: #FE5E32;
+
+  /* Typography */
+  --ff-jp: 'Zen Kaku Gothic New', system-ui, -apple-system, sans-serif;
+  --ff-en: 'Inter', system-ui, sans-serif;
+
+  /* Radius */
+  --r-sm: 6px;
+  --r-md: 12px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-pill: 999px;
+
+  /* Shadow */
+  --sh-card: 0 2px 0 rgba(32, 57, 84, 0.06), 0 12px 32px -8px rgba(32, 57, 84, 0.12);
+  --sh-pop: 0 8px 0 rgba(32, 57, 84, 0.08), 0 24px 48px -12px rgba(32, 57, 84, 0.18);
+}
+
+/* Base reset within artboards */
+.mierun, .mierun * {
+  font-family: var(--ff-jp);
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+.mierun {
+  color: var(--c-ink);
+  background: var(--c-cream);
+  letter-spacing: 0.01em;
+  line-height: 1.6;
+}
+.mierun p { margin: 0; }
+.mierun h1, .mierun h2, .mierun h3, .mierun h4 { margin: 0; font-weight: 700; line-height: 1.3; letter-spacing: 0.02em; }
+.mierun button { font-family: var(--ff-jp); cursor: pointer; border: none; }
+.mierun .en { font-family: var(--ff-en); letter-spacing: 0.12em; }
+.mierun .num { font-family: var(--ff-en); font-feature-settings: "tnum"; }
+
+/* Common utilities */
+.mierun .eyebrow {
+  font-family: var(--ff-en);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  color: var(--c-orange);
+  text-transform: uppercase;
+}
+.mierun .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 36px;
+  background: var(--c-orange);
+  color: var(--c-white);
+  border-radius: var(--r-pill);
+  font-weight: 700;
+  font-size: 18px;
+  box-shadow: 0 4px 0 #C6411E, 0 12px 24px -8px rgba(254, 94, 50, 0.5);
+  transition: transform 0.15s;
+}
+.mierun .btn-primary:hover { transform: translateY(-2px); }
+.mierun .btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 18px 36px;
+  background: transparent;
+  color: var(--c-dark-blue);
+  border: 2px solid var(--c-dark-blue);
+  border-radius: var(--r-pill);
+  font-weight: 700;
+  font-size: 18px;
+}
+.mierun .btn-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 36px;
+  background: var(--c-dark-blue);
+  color: var(--c-white);
+  border-radius: var(--r-pill);
+  font-weight: 700;
+  font-size: 18px;
+  box-shadow: 0 4px 0 #142538, 0 12px 24px -8px rgba(32, 57, 84, 0.45);
+  transition: transform 0.15s;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+.mierun .btn-dark:hover { transform: translateY(-2px); color: #fff !important; }
+.mierun .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--c-white);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-pill);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--c-ink-70);
+}
+
+/* ============================================
+   HeroC タイトル レスポンシブ改行制御
+   PC : 「AIの目で、簡単に、しっかり検品。」を 1行で
+   SP : 「AIの目で / 簡単に、 / しっかり検品。」と 3行に
+   ============================================ */
+.hero-c-title .hero-c-br { display: none; }
+.hero-c-title .hero-c-comma { display: inline; }
+.hero-c-title .hero-c-underline { display: block; }
+
+@media (max-width: 640px) {
+  .hero-c-title {
+    font-size: 44px !important;
+    line-height: 1.25 !important;
+    white-space: normal !important;
+    max-width: 100% !important;
+  }
+  .hero-c-title .hero-c-br { display: inline; }
+  .hero-c-title .hero-c-comma { display: none; }
+  /* スマホでは波線下線を非表示(改行で span 幅が変わり位置がズレるため) */
+  .hero-c-title .hero-c-underline { display: none; }
+}
+
+@media (max-width: 380px) {
+  .hero-c-title { font-size: 36px !important; }
+}
+
+/* フッターリンク + ヘッダーナビ ホバー */
+.footer-link:hover { opacity: 1 !important; color: var(--c-orange) !important; }
+/* ナビのテキストリンクのみ orange ホバー(btn-primary は除外) */
+.mierun nav a:not(.btn-primary):hover { opacity: 1 !important; color: var(--c-orange) !important; }
+/* btn-primary はホバーしても文字色は白のまま */
+.mierun a.btn-primary:hover { color: #fff !important; }
+
+/* スムーズスクロール(アンカー遷移用) */
+html { scroll-behavior: smooth; }

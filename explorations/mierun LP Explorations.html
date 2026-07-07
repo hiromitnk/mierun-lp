@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>mierun LP — レイアウト探索</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/tokens.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="design_canvas.jsx"></script>
+<script type="text/babel" src="sections/Common.jsx"></script>
+<script type="text/babel" src="sections/Heroes.jsx"></script>
+<script type="text/babel" src="sections/Problems.jsx"></script>
+<script type="text/babel" src="sections/Features.jsx"></script>
+<script type="text/babel" src="sections/Benefits.jsx"></script>
+<script type="text/babel" src="sections/Flow.jsx"></script>
+<script type="text/babel" src="sections/FaqCta.jsx"></script>
+<script type="text/babel" src="sections/Mobile.jsx"></script>
+<script type="text/babel" data-presets="env,react">
+const { useEffect, useState } = React;
+
+function MierunCanvas() {
+  return (
+    <DesignCanvas
+      title="mierun LP — レイアウト探索"
+      subtitle="中fidelity / 各セクション複数案でレイアウト選定 → Mix & Matchで構成決定 → ブラッシュアップへ"
+      storageKey="mierun-lp-v1"
+      bg="#F5EFD6"
+    >
+      {/* --- 全体方針メモ --- */}
+      <DCSection id="intro" title="01 — 方針メモ" subtitle="今回の中fidelityで決めたいこと">
+        <DCArtboard id="memo" label="作業メモ" width={1280} height={560}>
+          <div style={{ width: 1280, height: 560, background: '#F2EEE4', padding: '48px 56px', fontFamily: "'Zen Kaku Gothic New', sans-serif", color: '#0E0A2E' }}>
+            <div style={{ display: 'inline-block', padding: '6px 14px', background: '#203954', color: '#FFF3D6', borderRadius: 999, fontSize: 12, fontWeight: 700, letterSpacing: '0.12em' }}>BRIEF NOTE — 2026.06.27</div>
+            <h1 style={{ fontSize: 40, marginTop: 20, color: '#203954', lineHeight: 1.35 }}>
+              「板金屋さんのおじさんにも刺さる」<br/>
+              <span style={{ color: '#FE5E32' }}>親しみやすさ + 信頼感</span>のLP。
+            </h1>
+            <div style={{ marginTop: 36, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 28 }}>
+              <div>
+                <div style={{ fontFamily: 'Inter', fontSize: 11, color: '#FE5E32', fontWeight: 700, letterSpacing: '0.16em' }}>COLOR USE</div>
+                <div style={{ marginTop: 10, fontSize: 14, lineHeight: 1.85 }}>
+                  Dark Blue <span style={{ display: 'inline-block', width: 10, height: 10, background: '#203954', borderRadius: 3, verticalAlign: 'middle' }}/> を骨格(信頼感)、Orange <span style={{ display: 'inline-block', width: 10, height: 10, background: '#FE5E32', borderRadius: 3, verticalAlign: 'middle' }}/> をCTAとNGハイライト、June Bud <span style={{ display: 'inline-block', width: 10, height: 10, background: '#B8CE52', borderRadius: 3, verticalAlign: 'middle' }}/> はOK・補助、Cream <span style={{ display: 'inline-block', width: 10, height: 10, background: '#FFF3D6', borderRadius: 3, verticalAlign: 'middle' }}/> を全面ベース。ロゴのティールは"ブランドマーク"として独立。
+                </div>
+              </div>
+              <div>
+                <div style={{ fontFamily: 'Inter', fontSize: 11, color: '#FE5E32', fontWeight: 700, letterSpacing: '0.16em' }}>VISUAL CORE</div>
+                <div style={{ marginTop: 10, fontSize: 14, lineHeight: 1.85 }}>
+                  「<strong>間違い探し方式</strong>」と「<strong>赤枠BBOX</strong>」が製品の唯一の見せ場。これをヒーローでキレイに見せれば、テキストを読まなくても何のプロダクトか伝わる。
+                </div>
+              </div>
+              <div>
+                <div style={{ fontFamily: 'Inter', fontSize: 11, color: '#FE5E32', fontWeight: 700, letterSpacing: '0.16em' }}>NEXT STEPS</div>
+                <div style={{ marginTop: 10, fontSize: 14, lineHeight: 1.85 }}>
+                  下に各セクション複数案を並べました。ヒロミがミックスで「ヒーロー=A、課題=B…」と選んだら、それを通しLPに統合 → 7月初旬公開に向けて実装。3D筐体・スクショ・写真はリリース後ブラッシュアップで。
+                </div>
+              </div>
+            </div>
+            <div style={{ marginTop: 36, padding: 20, background: '#FFF3D6', borderRadius: 12, fontSize: 13, color: '#4A4664', lineHeight: 1.85 }}>
+              <strong style={{ color: '#203954' }}>未確定/要素材:</strong> 実際の検査画面スクショ・3D筐体モデル(回転表示)・お問合せフォーム送信先・サーバー(BD AWS or 龍さんサーバー)。これらはリリース後 or 受領後に差し込み可能な構造で設計。
+            </div>
+          </div>
+        </DCArtboard>
+      </DCSection>
+
+      {/* --- ヒーロー 3案 --- */}
+      <DCSection id="hero" title="02 — ヒーロー / ファーストビュー" subtitle="3案。最重要セクション、ここの選定で全体の印象が決まる">
+        <DCArtboard id="hero-a" label="A. 王道(左コピー / 右UIモック+注釈フローティング)" width={1280} height={780}>
+          <HeroA />
+        </DCArtboard>
+        <DCArtboard id="hero-b" label="B. 大文字インパクト(左:タイポ主役 / 右:Dark Blue面)" width={1280} height={780}>
+          <HeroB />
+        </DCArtboard>
+        <DCArtboard id="hero-c" label="C. 間違い探しメタファー(BEFORE/AFTER並置)" width={1280} height={920}>
+          <HeroC />
+        </DCArtboard>
+      </DCSection>
+
+      {/* --- 課題提起 2案 --- */}
+      <DCSection id="problems" title="03 — 課題提起(こんなお悩み)" subtitle="現場の声をどう見せるか。共感のフックになる重要セクション">
+        <DCArtboard id="prob-a" label="A. 吹き出しカード型(現場の声を主役に)" width={1280} height={680}>
+          <ProblemsA />
+        </DCArtboard>
+        <DCArtboard id="prob-b" label="B. 対比型 + 経営インパクト数字" width={1280} height={920}>
+          <ProblemsB />
+        </DCArtboard>
+      </DCSection>
+
+      {/* --- 機能/特徴 2案 --- */}
+      <DCSection id="features" title="04 — 機能・特徴" subtitle="ミエルン本体の説明。「良品1枚で開始」を最も強く打ち出す">
+        <DCArtboard id="feat-a" label="A. 3カードグリッド(全機能を均等表示)" width={1280} height={780}>
+          <FeaturesA />
+        </DCArtboard>
+        <DCArtboard id="feat-b" label="B. 縦タブ型(主機能をフォーカス&深掘り)" width={1280} height={780}>
+          <FeaturesB />
+        </DCArtboard>
+      </DCSection>
+
+      {/* --- 導入メリット 2案 --- */}
+      <DCSection id="benefits" title="05 — 導入メリット" subtitle="Before/After対比 と 数字訴求の2方向">
+        <DCArtboard id="ben-a" label="A. BEFORE/AFTER対比表(変化を直感的に)" width={1280} height={820}>
+          <BenefitsA />
+        </DCArtboard>
+        <DCArtboard id="ben-b" label="B. 数字訴求 + 競合比較表(Dark Blue面で重厚に)" width={1280} height={1080}>
+          <BenefitsB />
+        </DCArtboard>
+      </DCSection>
+
+      {/* --- 使い方フロー 2案 --- */}
+      <DCSection id="flow" title="06 — 使い方フロー" subtitle="導入から日々運用までの流れ">
+        <DCArtboard id="flow-a" label="A. 横ステップ(4ステップを並列に)" width={1280} height={620}>
+          <FlowA />
+        </DCArtboard>
+        <DCArtboard id="flow-b" label="B. 縦タイムライン(画面プレビュー付き)" width={1280} height={920}>
+          <FlowB />
+        </DCArtboard>
+      </DCSection>
+
+      {/* --- FAQ --- */}
+      <DCSection id="faq" title="07 — FAQ" subtitle="アコーディオン型(1案)">
+        <DCArtboard id="faq-a" label="A. アコーディオン型" width={1280} height={820}>
+          <FaqSection />
+        </DCArtboard>
+      </DCSection>
+
+      {/* --- CTA 2案 --- */}
+      <DCSection id="cta" title="08 — CTA / お問い合わせ" subtitle="最終アクション。展示会情報も併設できる">
+        <DCArtboard id="cta-a" label="A. フルブリード(Dark Blue + 展示会情報併設)" width={1280} height={920}>
+          <CtaA />
+        </DCArtboard>
+        <DCArtboard id="cta-b" label="B. カード型(フォーム内蔵 / 軽快)" width={1280} height={580}>
+          <CtaB />
+        </DCArtboard>
+      </DCSection>
+
+      {/* --- フッター --- */}
+      <DCSection id="footer" title="09 — フッター" subtitle="全案共通">
+        <DCArtboard id="footer-a" label="共通フッター" width={1280} height={400}>
+          <div className="mierun" style={{ width: 1280 }}>
+            <SiteFooter />
+          </div>
+        </DCArtboard>
+      </DCSection>
+
+      {/* --- SP版 --- */}
+      <DCSection id="mobile" title="10 — SP版(主要セクション)" subtitle="375幅、4セクションの縦展開イメージ">
+        <DCArtboard id="sp-hero" label="SP / ヒーロー" width={375} height={920}>
+          <MobileHero />
+        </DCArtboard>
+        <DCArtboard id="sp-prob" label="SP / 課題提起" width={375} height={760}>
+          <MobileProblems />
+        </DCArtboard>
+        <DCArtboard id="sp-feat" label="SP / 機能特徴" width={375} height={840}>
+          <MobileFeatures />
+        </DCArtboard>
+        <DCArtboard id="sp-cta" label="SP / CTA" width={375} height={620}>
+          <MobileCta />
+        </DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<MierunCanvas />);
+</script>
+</body>
+</html>

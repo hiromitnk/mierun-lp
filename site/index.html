@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>mierun — 板金加工業のためのAI外観検査</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/tokens.css">
+<style>
+  /* ============================================
+     body : 明るめのヘアライン仕上げ金属テクスチャ
+     板金屋さんが見て「うちの世界だ」となるよう、
+     SVG で水平方向のブラッシュ繊維 + 天井反射グラデを合成。
+     ============================================ */
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #c9ccd1;
+    background-image:
+      /* 1) ヘアライン繊維 (水平方向に強く引き伸ばした turbulence) */
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='400'><filter id='b'><feTurbulence type='fractalNoise' baseFrequency='0.9 0.012' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 0.55  0 0 0 0 0.57  0 0 0 0 0.6  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23b)'/></svg>"),
+      /* 2) 細かい粒状ノイズ (ザラつきで'刷り'感) */
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' seed='9'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0.18 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"),
+      /* 3) 天井光〜陰のごく緩い縦グラデ (金属のハイライト感) */
+      linear-gradient(180deg, #e5e8ec 0%, #ccd0d6 38%, #b5b9c0 62%, #cfd2d8 100%);
+    background-size: 1600px 400px, 240px 240px, 100% 100%;
+    background-repeat: repeat, repeat, no-repeat;
+    background-attachment: fixed, fixed, fixed;
+  }
+
+  /* 紙(lp-frame)が金属の上に乗っているような立体感 */
+  .lp-frame {
+    width: 90vw;
+    max-width: 1400px;
+    margin: 40px auto;
+    background: #fcfcfc;
+    border-radius: 4px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,        /* 上端のハイライト */
+      0 24px 56px -16px rgba(20, 30, 50, 0.35),    /* 主シャドウ */
+      0 48px 120px -40px rgba(20, 30, 50, 0.45),   /* 拡散シャドウ */
+      0 0 0 1px rgba(20, 30, 50, 0.08);            /* 微細な縁 */
+  }
+  .lp-frame > div { width: 100% !important; }
+  .lp-frame .mierun { width: 100% !important; max-width: 100% !important; }
+
+  @media (max-width: 880px) {
+    .lp-frame { margin: 16px auto; border-radius: 2px; }
+  }
+</style>
+<!-- 3Dビューワー(Google model-viewer) -->
+<script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="tweaks_panel.jsx"></script>
+<script type="text/babel" src="sections/Common.jsx?v=2"></script>
+<script type="text/babel" src="sections/Heroes.jsx"></script>
+<script type="text/babel" src="sections/EventBanner.jsx"></script>
+<script type="text/babel" src="sections/Problems.jsx"></script>
+<script type="text/babel" src="sections/Features.jsx?v=4"></script>
+<script type="text/babel" src="sections/Enclosure.jsx"></script>
+<script type="text/babel" src="sections/Benefits.jsx"></script>
+<script type="text/babel" src="sections/Flow.jsx?v=2"></script>
+<script type="text/babel" src="sections/FaqCta.jsx"></script>
+<script type="text/babel" data-presets="env,react">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "buttonSize": "lg",
+  "accentColor": "#FE5E32",
+  "primaryColor": "#203954",
+  "zebra": true,
+  "bgBase": "#fcfcfc",
+  "bgAlt": "#f0f0f0"
+}/*EDITMODE-END*/;
+
+function MierunStitched() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  // ボタン & 背景の実反映(動的CSS)
+  React.useEffect(() => {
+    const sizeMap = {
+      sm: { fs: 15, py: 14, px: 28 },
+      md: { fs: 16, py: 16, px: 32 },
+      lg: { fs: 18, py: 20, px: 36 },
+      xl: { fs: 20, py: 22, px: 40 },
+    };
+    const s = sizeMap[t.buttonSize] || sizeMap.lg;
+    let style = document.getElementById('tweak-style');
+    if (!style) {
+      style = document.createElement('style');
+      style.id = 'tweak-style';
+      document.head.appendChild(style);
+    }
+    // ゼブラON時: 奇数番目セクションは bgBase、偶数番目セクションは bgAlt
+    // .lp-frame > div:nth-child(N) でセクションの背景を上書き
+    const bgAlt = t.zebra ? t.bgAlt : t.bgBase;
+    style.textContent = `
+      .mierun .btn-primary, .mierun .btn-dark { font-size: ${s.fs}px !important; padding: ${s.py}px ${s.px}px !important; }
+      .mierun .btn-primary { background: ${t.accentColor} !important; box-shadow: 0 4px 0 ${shade(t.accentColor, -30)}, 0 12px 24px -8px ${alpha(t.accentColor, 0.5)} !important; }
+      .mierun .btn-ghost { font-size: ${s.fs}px !important; padding: ${s.py-2}px ${s.px}px !important; border-color: ${t.primaryColor} !important; color: ${t.primaryColor} !important; }
+      .mierun .btn-dark { background: ${t.primaryColor} !important; box-shadow: 0 4px 0 ${shade(t.primaryColor, -30)}, 0 12px 24px -8px ${alpha(t.primaryColor, 0.45)} !important; }
+      .lp-frame { background: ${t.bgBase} !important; }
+      .lp-frame > .sec-base > .mierun { background: ${t.bgBase} !important; }
+      .lp-frame > .sec-alt > .mierun { background: ${bgAlt} !important; }
+    `;
+  }, [t.buttonSize, t.accentColor, t.primaryColor, t.bgBase, t.bgAlt, t.zebra]);
+
+  return (
+    <>
+      <div className="lp-frame">
+        <div className="sec-base" id="top"><HeroC /></div>
+        <div id="event"><EventBannerDxpo /></div>
+        <div className="sec-alt" id="problems"><ProblemsA /></div>
+        <div className="sec-base" id="features"><FeaturesA /></div>
+        <div className="sec-alt" id="enclosure"><EnclosureSection /></div>
+        <div className="sec-base" id="benefits"><BenefitsA /></div>
+        <div className="sec-base" id="flow"><FlowB /></div>
+        <div className="sec-base" id="faq"><FaqSection /></div>
+        <div className="sec-alt" id="contact"><CtaB /></div>
+        <div className="mierun"><SiteFooter /></div>
+      </div>
+      <TweaksPanel title="Tweaks">
+        <TweakSuggestionBar suggestions={[
+          "ヒーロー背景にうっすら板金テクスチャを足して",
+          "CTAをもっと目立つ蛍光オレンジに",
+          "全体をもうちょっとカジュアル寄りに",
+        ]} />
+        <TweakSection title="ボタン">
+          <TweakRadio label="ボタンサイズ" value={t.buttonSize} onChange={v => setTweak('buttonSize', v)} options={[
+            { value: 'sm', label: 'S' },
+            { value: 'md', label: 'M' },
+            { value: 'lg', label: 'L' },
+            { value: 'xl', label: 'XL' },
+          ]} />
+        </TweakSection>
+        <TweakSection title="カラー">
+          <TweakColor label="アクセント(CTA)" value={t.accentColor} onChange={v => setTweak('accentColor', v)} options={[
+            '#FE5E32', '#FF8800', '#E91E63', '#4FA8C2', '#203954',
+          ]} />
+          <TweakColor label="主役カラー" value={t.primaryColor} onChange={v => setTweak('primaryColor', v)} options={[
+            '#203954', '#0E0A2E', '#4FA8C2', '#2A6FDB',
+          ]} />
+        </TweakSection>
+        <TweakSection title="背景">
+          <TweakColor label="ベース背景" value={t.bgBase} onChange={v => setTweak('bgBase', v)} options={[
+            '#fcfcfc', '#ffffff', '#f5f5f5', '#fcf9f3', '#f7f3eb',
+          ]} />
+          <TweakColor label="ゼブラ用 副背景" value={t.bgAlt} onChange={v => setTweak('bgAlt', v)} options={[
+            '#f0f0f0', '#eeeeee', '#f5f1e8', '#ece7d8', '#e8e4d6',
+          ]} />
+          <TweakToggle label="ゼブラ(交互背景)" value={t.zebra} onChange={v => setTweak('zebra', v)} />
+        </TweakSection>
+      </TweaksPanel>
+    </>
+  );
+}
+
+// color helpers
+function shade(hex, percent) {
+  const num = parseInt(hex.slice(1), 16);
+  let r = (num >> 16) + percent;
+  let g = ((num >> 8) & 0x00FF) + percent;
+  let b = (num & 0x0000FF) + percent;
+  r = Math.max(0, Math.min(255, r));
+  g = Math.max(0, Math.min(255, g));
+  b = Math.max(0, Math.min(255, b));
+  return '#' + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0');
+}
+function alpha(hex, a) {
+  const num = parseInt(hex.slice(1), 16);
+  return `rgba(${num >> 16}, ${(num >> 8) & 0xFF}, ${num & 0xFF}, ${a})`;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<MierunStitched />);
+</script>
+</body>
+</html>

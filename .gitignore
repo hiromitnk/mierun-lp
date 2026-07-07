@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+
+# エディタ
+.vscode/
+.idea/
+*.swp
+
+# Designer2 内部ファイル
+*.srcmap.json
+.thumbnail.jpg
+.*.meta.json
+.meta.json
+screenshots/
+
+# 依存(現状は使ってないが将来Node導入時のため)
+node_modules/
+dist-build/
+.wrangler/
