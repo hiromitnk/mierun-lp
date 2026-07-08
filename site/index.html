@@ -311,6 +311,122 @@
     .mierun [style*="fontSize: 28"] {
       font-size: 20px !important;
     }
+
+    /* ============================================
+       ▼ ヒロミ指示分の SP 個別調整 (2026-07 追記)
+       ============================================ */
+
+    /* ① 全幅化: .lp-frame の白フレーム/角丸/シャドウ/余白を全部消す
+       金属背景が見えなくなってもOK、スマホは端まで使う */
+    .lp-frame {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+    body {
+      /* SPでは重い金属テクスチャは描画コスト無駄なので普通の白背景に */
+      background: #fcfcfc !important;
+    }
+
+    /* ② HeroC の Before/After は SP でも横並びを維持
+       (汎用ルールで 1fr にされるのを打ち消し) */
+    .mierun .hero-c-title + p + div[style*="grid-template-columns"] {
+      grid-template-columns: 1fr auto 1fr !important;
+      gap: 8px !important;
+    }
+    /* Before/After のカード内 padding も詰める */
+    .mierun .hero-c-title + p + div[style*="grid-template-columns"] > div {
+      min-width: 0;
+    }
+    .mierun .hero-c-title + p + div[style*="grid-template-columns"] .en {
+      font-size: 10px !important;
+      letter-spacing: 0.08em !important;
+    }
+    /* 中央のCOMPARE丸ボタンを小さく + 矢印は横向きのまま(単列化しないので) */
+    .mierun .compare-badge__circle {
+      width: 40px !important;
+      height: 40px !important;
+    }
+    .mierun .compare-badge__circle svg {
+      width: 18px;
+      height: 18px;
+    }
+    /* SP でも横並びなので矢印は右向きに戻す (汎用ルールで下向き回転していたのを解除) */
+    .mierun .compare-badge__arrow {
+      transform: none !important;
+    }
+    /* Before/After カード内 padding を詰めてはみ出し防止 */
+    .mierun .hero-c-title + p + div[style*="grid-template-columns"] > div > div[style*="border-radius"] {
+      padding: 6px !important;
+    }
+
+    /* ③ Problems CTA バー (「1つでも当てはまるなら」) を縦積みに */
+    .mierun [style*="background: #203954"][style*="justify-content: space-between"] {
+      flex-direction: column !important;
+      align-items: stretch !important;
+      gap: 20px !important;
+      text-align: center;
+    }
+    .mierun [style*="background: #203954"][style*="justify-content: space-between"] > div {
+      text-align: center;
+    }
+    .mierun [style*="background: #203954"][style*="justify-content: space-between"] .btn-primary {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* ④ Enclosure 標準サイズのカード: デモバッジをタグバーの下(=筐体の上)へ移動
+       タグバー全体を縦積みにしてバッジを別行に */
+    .mierun [style*="border-bottom: 1px dashed"][style*="justify-content: space-between"] {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 10px !important;
+    }
+
+    /* ⑤ FlowB の縦タイムライン: 左の縦棒を消す + カード内 grid を単列化
+       (grid: '80px 1fr 360px' → 単列)
+       汎用 grid ルールで既に単列化されるが、gap調整のみ */
+    /* 縦棒 (position: absolute; left: 40; width: 2) を消す */
+    .mierun [style*="position: absolute"][style*="left: 40"][style*="width: 2"] {
+      display: none !important;
+    }
+    /* 各ステップの丸番号(80px)を左寄せに */
+    .mierun [style*="grid-template-columns: 80px 1fr 360px"] > div[style*="width: 80px"],
+    .mierun [style*="gridTemplateColumns: 80px 1fr 360px"] > div[style*="width: 80px"] {
+      margin: 0;
+    }
+
+    /* ⑥ お問い合わせフォームは既に汎用 grid ルールで 1fr になっているはず。
+       CtaB のカード padding をさらに詰める */
+    .mierun [style*="padding: 56px 64px"] {
+      padding: 28px 20px !important;
+    }
+    .mierun [style*="border-radius: 28"] {
+      border-radius: 16px !important;
+    }
+    /* お問い合わせフォームの内側カード余白 */
+    .mierun [style*="background: #f0f0f0"][style*="border-radius: 20"][style*="padding: 32"] {
+      padding: 20px !important;
+    }
+
+    /* ⑦ フッター全幅化 + 白フチ撤廃
+       .lp-frame の overflow-x:hidden も外して、フッターだけ画面幅に広げる
+       → 実際には .lp-frame 自体が 100vw になったので、フッターは padding のみ調整 */
+    .site-footer {
+      padding-left: 20px !important;
+      padding-right: 20px !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+
+    /* ⑧ ヘッダーも全幅なので padding だけキープ (既に 12/16px なのでOK) */
+
+    /* ⑨ EventBanner (オレンジ告知) の左右余白も画面いっぱいまで */
+    .mierun [style*="background: #FE5E32"][style*="border-radius"] {
+      border-radius: 12px !important;
+    }
   }
 </style>
 <!-- 3Dビューワー(Google model-viewer) -->
