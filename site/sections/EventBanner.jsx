@@ -50,7 +50,7 @@ function EventBannerDxpo() {
           <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#B8CE52' }} />
           EXHIBITION
         </span>
-        <span style={{ display: 'inline-flex', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
+        <span className="event-banner__title-wrap" style={{ display: 'inline-flex', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
           <span className="event-banner__title" style={{ fontSize: 26, fontWeight: 800, letterSpacing: '0.02em', lineHeight: 1.2 }}>
             デモ体験できます!
           </span>
