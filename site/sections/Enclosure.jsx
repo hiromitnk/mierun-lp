@@ -49,7 +49,7 @@ function EnclosureSection() {
       </div>
 
       {/* 補足: スペック表 */}
-      <div style={{
+      <div className="enclosure-spec" style={{
         marginTop: 48,
         background: '#fff',
         borderRadius: 16,

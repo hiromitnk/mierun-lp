@@ -188,18 +188,20 @@ function EventBannerDxpo() {
       </a>
 
       {/* カウントダウン or 補足(オレンジ部分の下) */}
-      <div style={{
+      <div className="event-banner__note" style={{
         position: 'relative',
         marginTop: 24,
         display: 'flex', justifyContent: 'flex-start', alignItems: 'center',
         color: '#fff', fontSize: 18, opacity: 0.95,
       }}>
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <span className="event-banner__note-inner" style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
+          <svg className="event-banner__note-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="12" cy="12" r="9" />
             <path d="M12 7v5l3 2" />
           </svg>
-          <strong style={{ fontSize: 19 }}>事前来場登録</strong>で当日スムーズに入場 (有人受付は5,000円)
+          <span className="event-banner__note-text">
+            <strong style={{ fontSize: 19 }}>事前来場登録</strong>で当日スムーズに入場 (有人受付は5,000円)
+          </span>
         </span>
       </div>
     </div>

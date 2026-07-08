@@ -69,8 +69,8 @@ function FlowB() {
       <div style={{ marginTop: 64, position: 'relative', display: 'flex', flexDirection: 'column', gap: 28 }}>
         <div style={{ position: 'absolute', left: 40, top: 40, bottom: 40, width: 2, background: '#e8e8e8' }} />
         {steps.map((s, i) => (
-          <div key={s.n} style={{ display: 'grid', gridTemplateColumns: '80px 1fr 360px', gap: 32, alignItems: 'center', position: 'relative' }}>
-            <div style={{
+          <div key={s.n} className="flow-step" style={{ display: 'grid', gridTemplateColumns: '80px 1fr 360px', gap: 32, alignItems: 'center', position: 'relative' }}>
+            <div className="flow-step__num" style={{
               width: 80, height: 80, borderRadius: '50%',
               background: '#203954',
               color: '#fff',
@@ -81,7 +81,7 @@ function FlowB() {
             }}>
               {s.n}
             </div>
-            <div>
+            <div className="flow-step__body">
               <div className="chip" style={{ background: '#f0f0f0', borderColor: '#e8e8e8', color: '#FE5E32', fontSize: 16 }}>{s.tag}</div>
               <h3 style={{ fontSize: 26, color: '#203954', marginTop: 12 }}>{s.title}</h3>
               <p style={{ marginTop: 12, fontSize: 19, color: '#4A4664', lineHeight: 1.85 }}>{s.desc}</p>

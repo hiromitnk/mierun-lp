@@ -164,23 +164,48 @@
     .site-footer {
       padding: 40px 20px 24px;
     }
+    /* トップ (brand + cols) 全体を縦積み中央 */
     .site-footer__top {
       flex-direction: column;
       gap: 32px;
+      align-items: center;
+      text-align: center;
     }
-    .site-footer__brand { max-width: 100%; }
+    .site-footer__brand {
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    /* カラム: 2列grid、3個目は全幅で中央に */
     .site-footer__cols {
-      gap: 28px;
+      display: grid !important;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px 20px;
       width: 100%;
     }
-    .site-footer__col { flex: 1 1 40%; min-width: 40%; }
+    .site-footer__col {
+      flex: none;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .site-footer__col:nth-child(3) {
+      grid-column: 1 / -1;   /* 3個目 (Company) を2列またぐ */
+    }
     .site-footer__col-title { font-size: 14px; margin-bottom: 10px; }
-    .site-footer__link { font-size: 15px; margin-bottom: 8px; }
+    .site-footer__link { font-size: 15px; margin-bottom: 8px; text-align: center; }
+    /* コピーライト部分も中央寄せ */
     .site-footer__bottom {
       margin-top: 32px;
       flex-direction: column;
       gap: 8px;
       font-size: 13px;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
     }
   }
 
@@ -206,6 +231,20 @@
      React インラインstyle で組まれたグリッド・padding・フォントを一括で調整
      ============================================ */
   @media (max-width: 767px) {
+    /* SPでは金属背景をやめて白ベタに (lp-frame が全幅化するので土台が見える必要なし) */
+    body {
+      background-color: #fcfcfc !important;
+      background-image: none !important;
+    }
+    /* lp-frame の白フレームを完全に剥がして全幅化 */
+    .lp-frame {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      background: #fcfcfc !important;
+    }
     /* mierun 内のセクション余白を圧縮 */
     .mierun > section,
     .mierun > div > section,
@@ -466,6 +505,45 @@
     /* ⑨ EventBanner (オレンジ告知) の左右余白も画面いっぱいまで */
     .mierun [style*="background: #FE5E32"][style*="border-radius"] {
       border-radius: 12px !important;
+    }
+
+    /* ⑩ EventBanner 下部の note (時計アイコン + 事前来場登録 + 説明)
+       SP では アイコン左固定・"事前来場登録" を独立行に・本文は自然に流す */
+    .event-banner__note-inner {
+      align-items: flex-start !important;
+      gap: 8px !important;
+    }
+    .event-banner__note-icon {
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    .event-banner__note-text {
+      display: block;
+      font-size: 15px !important;
+      line-height: 1.6 !important;
+    }
+    .event-banner__note-text strong {
+      display: block;
+      font-size: 17px !important;
+      margin-bottom: 2px;
+    }
+
+    /* ⑪ Enclosure スペック表 (POWER / LIGHTING / CAMERA / DELIVERY): SPは中央寄せ */
+    .enclosure-spec > div {
+      text-align: center;
+    }
+
+    /* ⑫ Flow ステップカード: SPは数字丸とテキスト部分をどちらも中央寄せ */
+    .flow-step__num {
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+    .flow-step__body {
+      text-align: center;
+    }
+    .flow-step__body .chip {
+      /* chip は inline-flex なので親の text-align では効かない → margin auto */
+      display: inline-flex;
     }
   }
 </style>
