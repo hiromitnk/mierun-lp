@@ -77,7 +77,7 @@ function InspectionPreview({ width = 360, height = 240, status = 'ng', label = '
         )}
       </svg>
       {/* ステータスバッジ */}
-      <div style={{
+      <div className="inspection-preview__badge" style={{
         position: 'absolute', top: 12, left: 12,
         display: 'inline-flex', alignItems: 'center', gap: 6,
         padding: '5px 12px',
@@ -92,7 +92,7 @@ function InspectionPreview({ width = 360, height = 240, status = 'ng', label = '
         {isNg ? 'NG DETECTED' : 'OK'}
       </div>
       {/* 品番 */}
-      <div style={{
+      <div className="inspection-preview__part" style={{
         position: 'absolute', bottom: 12, left: 12,
         fontFamily: 'Inter, sans-serif',
         fontSize: 12,

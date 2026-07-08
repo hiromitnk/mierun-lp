@@ -231,7 +231,7 @@ function HeroC() {
         {/* Before/After 間違い探しビジュアル */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 24, marginTop: 56, alignItems: 'center', maxWidth: 1080, margin: '56px auto 0' }}>
           <div>
-            <div className="en" style={{ fontSize: 16, color: '#7B768F', letterSpacing: '0.16em', marginBottom: 12, textAlign: 'left' }}>
+            <div className="en hero-c-caption" style={{ fontSize: 16, color: '#7B768F', letterSpacing: '0.16em', marginBottom: 12, textAlign: 'left' }}>
               REFERENCE — 良品サンプル
             </div>
             <div style={{ background: '#fff', borderRadius: 16, padding: 14, boxShadow: '0 12px 32px -12px rgba(32,57,84,0.18)' }}>
@@ -252,7 +252,7 @@ function HeroC() {
             <div className="en" style={{ fontSize: 12, fontWeight: 700, color: '#FE5E32', letterSpacing: '0.14em' }}>COMPARE</div>
           </div>
           <div>
-            <div className="en" style={{ fontSize: 16, color: '#7B768F', letterSpacing: '0.16em', marginBottom: 12, textAlign: 'left' }}>
+            <div className="en hero-c-caption" style={{ fontSize: 16, color: '#7B768F', letterSpacing: '0.16em', marginBottom: 12, textAlign: 'left' }}>
               TARGET — 検査対象
             </div>
             <div style={{ background: '#fff', borderRadius: 16, padding: 14, boxShadow: '0 12px 32px -12px rgba(32,57,84,0.18)' }}>

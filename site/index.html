@@ -545,6 +545,68 @@
       /* chip は inline-flex なので親の text-align では効かない → margin auto */
       display: inline-flex;
     }
+
+    /* ⑬ InspectionPreview のステータスバッジ (OK / NG DETECTED)
+       SPでカード幅が狭いと右にはみ出るので縮める */
+    .inspection-preview__badge {
+      font-size: 11px !important;
+      padding: 4px 8px !important;
+      letter-spacing: 0.04em !important;
+      gap: 5px !important;
+      max-width: calc(100% - 24px);
+    }
+    .inspection-preview__part {
+      font-size: 10px !important;
+    }
+    /* Hero C の REFERENCE / TARGET ラベル */
+    .hero-c-caption {
+      font-size: 10px !important;
+      white-space: nowrap;
+    }
+
+    /* ⑭ EventBanner 見出し帯: pill と タイトルを縦積み中央寄せに */
+    .event-banner__head {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 12px !important;
+    }
+    .event-banner__pill {
+      flex-shrink: 0 !important;
+      white-space: nowrap;
+      font-size: 12px !important;
+      padding: 6px 12px !important;
+    }
+    .event-banner__title {
+      font-size: 22px !important;
+    }
+    .event-banner__sub {
+      font-size: 14px !important;
+      display: block;
+      margin-top: 4px;
+    }
+    /* EventBanner のオレンジCTAボタン: SPでは全幅・padding詰め */
+    .event-banner__cta {
+      width: 100%;
+      justify-content: center;
+      padding: 14px 20px !important;
+      font-size: 15px !important;
+      letter-spacing: 0.02em !important;
+    }
+
+    /* ⑮ CtaB (FREE TRIAL) の padding を SP で詰める */
+    .cta-b__card {
+      padding: 24px 20px !important;
+    }
+    .cta-b__form-wrap {
+      padding: 20px 16px !important;
+    }
+    .cta-b__lead {
+      font-size: 15px !important;
+      line-height: 1.75 !important;
+    }
+    .cta-b__title {
+      font-size: 32px !important;
+    }
   }
 </style>
 <!-- 3Dビューワー(Google model-viewer) -->

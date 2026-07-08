@@ -32,13 +32,13 @@ function EventBannerDxpo() {
       </svg>
 
       {/* 見出し帯(オレンジ部分の上部) */}
-      <div style={{
+      <div className="event-banner__head" style={{
         position: 'relative',
         display: 'flex', alignItems: 'center', gap: 14,
         marginBottom: 28,
         color: '#fff',
       }}>
-        <span style={{
+        <span className="event-banner__pill" style={{
           display: 'inline-flex', alignItems: 'center', gap: 8,
           padding: '8px 16px',
           background: '#0E0A2E',
@@ -51,10 +51,10 @@ function EventBannerDxpo() {
           EXHIBITION
         </span>
         <span style={{ display: 'inline-flex', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
-          <span style={{ fontSize: 26, fontWeight: 800, letterSpacing: '0.02em', lineHeight: 1.2 }}>
+          <span className="event-banner__title" style={{ fontSize: 26, fontWeight: 800, letterSpacing: '0.02em', lineHeight: 1.2 }}>
             デモ体験できます!
           </span>
-          <span style={{ fontSize: 16, fontWeight: 600, opacity: 0.9, letterSpacing: '0.04em' }}>
+          <span className="event-banner__sub" style={{ fontSize: 16, fontWeight: 600, opacity: 0.9, letterSpacing: '0.04em' }}>
             MIERUN 実機デモ、東京ビッグサイトで
           </span>
         </span>
@@ -159,14 +159,14 @@ function EventBannerDxpo() {
         </div>
 
         {/* 下段: 横長 CTA ボタン */}
-        <div style={{
+        <div className="event-banner__cta-wrap" style={{
           marginTop: 28,
           paddingTop: 24,
           borderTop: '1px dashed #efefef',
           display: 'flex',
           justifyContent: 'center',
         }}>
-          <div style={{
+          <div className="event-banner__cta" style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: 12,

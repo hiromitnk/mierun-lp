@@ -116,7 +116,7 @@ function CtaA() {
 function CtaB() {
   return (
     <div className="mierun" style={{ width: 1280, padding: '96px 56px', background: '#f0f0f0' }}>
-      <div style={{
+      <div className="cta-b__card" style={{
         background: '#fff',
         borderRadius: 28,
         padding: '56px 64px',
@@ -128,16 +128,16 @@ function CtaB() {
       }}>
         <div>
           <div className="eyebrow">FREE TRIAL</div>
-          <h2 style={{ fontSize: 42, marginTop: 16, lineHeight: 1.3, color: '#203954' }}>
+          <h2 className="cta-b__title" style={{ fontSize: 42, marginTop: 16, lineHeight: 1.3, color: '#203954' }}>
             <span style={{ color: '#FE5E32' }}>デモ機</span>を、<br/>
             お貸しします。
           </h2>
-          <p style={{ marginTop: 24, fontSize: 20, color: '#4A4664', lineHeight: 1.9 }}>
+          <p className="cta-b__lead" style={{ marginTop: 24, fontSize: 20, color: '#4A4664', lineHeight: 1.9 }}>
             簡単さも、精度も、<strong>貴社の現場で実際にお試しください。</strong><br/>
             2週間PoC・見積り相談・ご質問だけでも歓迎します。
           </p>
         </div>
-        <div style={{ background: '#f0f0f0', borderRadius: 20, padding: 32 }}>
+        <div className="cta-b__form-wrap" style={{ background: '#f0f0f0', borderRadius: 20, padding: 32 }}>
           <div style={{ fontSize: 16, fontWeight: 700, color: '#203954', marginBottom: 16 }}>お問い合わせフォーム</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             <input placeholder="貴社名" style={inputStyle} />
