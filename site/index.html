@@ -362,17 +362,19 @@
       padding: 6px !important;
     }
 
-    /* ③ Problems CTA バー (「1つでも当てはまるなら」) を縦積みに */
-    .mierun [style*="background: #203954"][style*="justify-content: space-between"] {
+    /* ③ Problems CTA バー (「1つでも当てはまるなら」) を縦積みに
+       ※ 属性セレクタは React のstyle正規化で当たらないので専用クラスで指定 */
+    .mierun .problems-cta-bar {
       flex-direction: column !important;
       align-items: stretch !important;
-      gap: 20px !important;
+      gap: 18px !important;
+      text-align: center;
+      padding: 24px 20px !important;
+    }
+    .mierun .problems-cta-bar > div {
       text-align: center;
     }
-    .mierun [style*="background: #203954"][style*="justify-content: space-between"] > div {
-      text-align: center;
-    }
-    .mierun [style*="background: #203954"][style*="justify-content: space-between"] .btn-primary {
+    .mierun .problems-cta-bar .btn-primary {
       width: 100%;
       justify-content: center;
     }
@@ -412,13 +414,51 @@
     }
 
     /* ⑦ フッター全幅化 + 白フチ撤廃
-       .lp-frame の overflow-x:hidden も外して、フッターだけ画面幅に広げる
-       → 実際には .lp-frame 自体が 100vw になったので、フッターは padding のみ調整 */
+       .lp-frame > div.mierun (SiteFooter を包む親) にも padding:16px が
+       汎用ルール ".lp-frame .mierun" で当たってしまっているので、
+       フッター側だけ padding をゼロにして幅いっぱいに広げる */
+    .lp-frame > div.mierun {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
     .site-footer {
       padding-left: 20px !important;
       padding-right: 20px !important;
       margin-left: 0 !important;
       margin-right: 0 !important;
+      width: 100% !important;
+      box-sizing: border-box;
+    }
+
+    /* ⑩ Benefits の BEFORE/AFTER 対比表を SP でも横並び (1fr 24px 1fr) を維持
+       — 単列化されると対比の意味が消えるため */
+    .mierun [style*="grid-template-columns: 1fr 80px 1fr"],
+    .mierun [style*="gridTemplateColumns: 1fr 80px 1fr"] {
+      grid-template-columns: 1fr 24px 1fr !important;
+      gap: 8px !important;
+      padding: 14px 12px !important;
+    }
+    /* BEFORE/AFTER 表内テキストを SP で読めるサイズに */
+    .mierun [style*="grid-template-columns: 1fr 80px 1fr"] > div,
+    .mierun [style*="gridTemplateColumns: 1fr 80px 1fr"] > div {
+      font-size: 14px !important;
+      line-height: 1.5 !important;
+    }
+    /* BEFORE/AFTER の見出し行 (「属人化した検査」等) は少しだけ大きく */
+    .mierun [style*="grid-template-columns: 1fr 80px 1fr"] > div > div[style*="font-size: 22"],
+    .mierun [style*="gridTemplateColumns: 1fr 80px 1fr"] > div > div[style*="fontSize: 22"] {
+      font-size: 15px !important;
+    }
+    /* ✓バッジを小さく */
+    .mierun [style*="grid-template-columns: 1fr 80px 1fr"] span[style*="width: 36px"],
+    .mierun [style*="gridTemplateColumns: 1fr 80px 1fr"] span[style*="width: 36px"] {
+      width: 24px !important;
+      height: 24px !important;
+      font-size: 13px !important;
+    }
+    /* 矢印列 → の文字も小さめ */
+    .mierun [style*="grid-template-columns: 1fr 80px 1fr"] > div[style*="text-align: center"][style*="font-size: 22"] {
+      font-size: 14px !important;
     }
 
     /* ⑧ ヘッダーも全幅なので padding だけキープ (既に 12/16px なのでOK) */

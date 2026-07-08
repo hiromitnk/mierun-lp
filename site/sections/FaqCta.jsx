@@ -20,12 +20,12 @@ function FaqSection() {
             border: '1px solid #efefef',
           }}>
             <summary style={{ display: 'flex', alignItems: 'flex-start', gap: 16, cursor: 'pointer', listStyle: 'none' }}>
-              <span style={{ fontFamily: 'Inter', fontWeight: 800, color: '#FE5E32', fontSize: 20, lineHeight: 1.4 }}>Q.</span>
+              <span style={{ fontFamily: 'Inter', fontWeight: 800, color: '#FE5E32', fontSize: 20, lineHeight: 1.4, whiteSpace: 'nowrap', flexShrink: 0 }}>Q.</span>
               <span style={{ flex: 1, fontSize: 20, fontWeight: 700, color: '#0E0A2E', lineHeight: 1.5 }}>{it.q}</span>
               <span style={{ fontSize: 24, color: '#7B768F', lineHeight: 1 }}>+</span>
             </summary>
             <div style={{ marginTop: 18, paddingLeft: 36, display: 'flex', gap: 16 }}>
-              <span style={{ fontFamily: 'Inter', fontWeight: 800, color: '#203954', fontSize: 20, lineHeight: 1.4 }}>A.</span>
+              <span style={{ fontFamily: 'Inter', fontWeight: 800, color: '#203954', fontSize: 20, lineHeight: 1.4, whiteSpace: 'nowrap', flexShrink: 0 }}>A.</span>
               <p style={{ fontSize: 19, color: '#4A4664', lineHeight: 1.9 }}>{it.a}</p>
             </div>
           </details>

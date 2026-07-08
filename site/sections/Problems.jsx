@@ -62,7 +62,7 @@ function ProblemsA() {
           </div>
         ))}
       </div>
-      <div style={{
+      <div className="problems-cta-bar" style={{
         marginTop: 56,
         padding: '28px 36px',
         background: '#203954',
