@@ -176,12 +176,7 @@ function EnclosureCard({ spec }) {
 
       {/* 下部: 説明 */}
       <div style={{ padding: '28px 28px 32px' }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
-          <span className="en" style={{ fontSize: 28, fontWeight: 800, color: accent, letterSpacing: '-0.01em' }}>
-            {spec.label}
-          </span>
-        </div>
-        <p style={{ marginTop: 16, fontSize: 17, color: '#4A4664', lineHeight: 1.85 }}>
+        <p style={{ fontSize: 17, color: '#4A4664', lineHeight: 1.85 }}>
           {spec.use}
         </p>
         <ul style={{ marginTop: 20, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>

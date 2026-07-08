@@ -223,7 +223,7 @@ function HeroC() {
             </svg>
           </span>検品。
         </h1>
-        <p style={{ marginTop: 36, fontSize: 22, color: '#4A4664', maxWidth: 680, margin: '36px auto 0', lineHeight: 1.85 }}>
+        <p style={{ fontSize: 22, color: '#4A4664', maxWidth: 680, margin: '12px auto 0', lineHeight: 1.85 }}>
           良品サンプルと比較する<strong>「間違い探し方式」</strong>。<br/>
           だから、設定は良品1枚だけでOK。
         </p>

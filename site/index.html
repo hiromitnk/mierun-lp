@@ -42,9 +42,12 @@
       0 24px 56px -16px rgba(20, 30, 50, 0.35),    /* 主シャドウ */
       0 48px 120px -40px rgba(20, 30, 50, 0.45),   /* 拡散シャドウ */
       0 0 0 1px rgba(20, 30, 50, 0.08);            /* 微細な縁 */
-    /* 万一の横はみ出しを防ぐ(sticky ヘッダーは body スクロール基準なので効く) */
-    overflow-x: hidden;
+    /* NOTE: overflow-x: hidden は position:sticky を殺すので、
+       横はみ出し対策は html 側でやる */
   }
+  /* 横はみ出し防止は body 側でする(sticky ヘッダーを殺さないため)
+     ※html 側にも overflow を付けると iOS Safari で sticky が壊れるので body のみ */
+  body { overflow-x: clip; }
   /* 日本語の長い文字列でも必ず折り返す */
   .mierun p, .mierun h1, .mierun h2, .mierun h3, .mierun li, .mierun span {
     overflow-wrap: anywhere;
@@ -648,16 +651,16 @@
 </head>
 <body>
 <div id="root"></div>
-<script type="text/babel" src="tweaks_panel.jsx"></script>
-<script type="text/babel" src="sections/Common.jsx?v=2"></script>
-<script type="text/babel" src="sections/Heroes.jsx"></script>
-<script type="text/babel" src="sections/EventBanner.jsx"></script>
-<script type="text/babel" src="sections/Problems.jsx"></script>
-<script type="text/babel" src="sections/Features.jsx?v=4"></script>
-<script type="text/babel" src="sections/Enclosure.jsx"></script>
-<script type="text/babel" src="sections/Benefits.jsx"></script>
-<script type="text/babel" src="sections/Flow.jsx?v=2"></script>
-<script type="text/babel" src="sections/FaqCta.jsx"></script>
+<script type="text/babel" src="tweaks_panel.jsx?v=20260708c"></script>
+<script type="text/babel" src="sections/Common.jsx?v=20260708c"></script>
+<script type="text/babel" src="sections/Heroes.jsx?v=20260708c"></script>
+<script type="text/babel" src="sections/EventBanner.jsx?v=20260708c"></script>
+<script type="text/babel" src="sections/Problems.jsx?v=20260708c"></script>
+<script type="text/babel" src="sections/Features.jsx?v=20260708c"></script>
+<script type="text/babel" src="sections/Enclosure.jsx?v=20260708c"></script>
+<script type="text/babel" src="sections/Benefits.jsx?v=20260708c"></script>
+<script type="text/babel" src="sections/Flow.jsx?v=20260708c"></script>
+<script type="text/babel" src="sections/FaqCta.jsx?v=20260708c"></script>
 <script type="text/babel" data-presets="env,react">
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "buttonSize": "lg",
