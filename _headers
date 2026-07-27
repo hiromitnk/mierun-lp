@@ -16,9 +16,15 @@
 /tweaks_panel.jsx
   Cache-Control: public, max-age=3600
 
-# 画像・3Dモデルは長期キャッシュ (ファイル名変更で更新)
+# 画像・3Dモデル
+# 以前は `immutable` にしていたが、
+# 同名で差し替えたときにブラウザキャッシュに永久に居座って
+# 「反映されない」事故が起きたため、must-revalidate に変更。
+# max-age=86400 (1日) + must-revalidate で、
+# 翌日には自動で etag チェックが走り、変更があれば取り直しされる。
+# 即時反映したいときは強制リロード (Cmd+Shift+R) で必ず最新が来る。
 /assets/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=86400, must-revalidate
 
 # セキュリティヘッダー
 /*

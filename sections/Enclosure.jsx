@@ -253,7 +253,53 @@ function Enclosure3DViewer({ spec, accent, visW, visH }) {
   React.useEffect(() => {
     const el = mvRef.current;
     if (!el) return;
-    const onLoad = () => setModelReady(true);
+
+    // ==== 実物(黒塗装マット)に寄せるためのマテリアル上書き ====
+    // 粉体塗装マット黒: 真っ黒だと潰れるので、わずかに明るいダークグレー
+    const BODY_COLOR     = [0.045, 0.045, 0.048, 1.0]; // linear RGBA
+    const BODY_ROUGHNESS = 0.72; // 0.6〜0.85でザラっと感を調整
+    const BODY_METALLIC  = 0.0;
+
+    // 金具(取っ手/ヒンジ): ステン風シルバー
+    const METAL_COLOR     = [0.62, 0.62, 0.63, 1.0];
+    const METAL_ROUGHNESS = 0.35;
+    const METAL_METALLIC  = 0.9;
+
+    let materialsApplied = false;
+    const applyMaterials = () => {
+      if (materialsApplied) return;
+      const model = el.model;
+      if (!model || !model.materials) return;
+      const materials = model.materials;
+      // 開発時のマテリアル名確認用(本番でも軽いので残しておく)
+      console.log('[mierun 3D] materials:', materials.map(m => m.name));
+
+      for (const mat of materials) {
+        const name = (mat.name || '').toLowerCase();
+        const isMetal =
+          name.includes('metal')  || name.includes('handle') ||
+          name.includes('hinge')  || name.includes('steel')  ||
+          name.includes('金具')   || name.includes('取っ手');
+
+        const pbr = mat.pbrMetallicRoughness;
+        if (!pbr) continue;
+        if (isMetal) {
+          pbr.setBaseColorFactor(METAL_COLOR);
+          pbr.setRoughnessFactor(METAL_ROUGHNESS);
+          pbr.setMetallicFactor(METAL_METALLIC);
+        } else {
+          pbr.setBaseColorFactor(BODY_COLOR);
+          pbr.setRoughnessFactor(BODY_ROUGHNESS);
+          pbr.setMetallicFactor(BODY_METALLIC);
+        }
+      }
+      materialsApplied = true;
+    };
+
+    const onLoad = () => {
+      applyMaterials();
+      setModelReady(true);
+    };
     el.addEventListener('load', onLoad);
     el.addEventListener('model-visibility', onLoad);
     // 既にロード済みだった場合の保険 + ポーリング(load イベント取り逃し対策)
@@ -261,6 +307,7 @@ function Enclosure3DViewer({ spec, accent, visW, visH }) {
     const poll = () => {
       if (cancelled) return;
       if (el.loaded || el.modelIsVisible) {
+        applyMaterials();
         setModelReady(true);
       } else {
         setTimeout(poll, 200);
