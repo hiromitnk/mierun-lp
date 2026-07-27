@@ -39,38 +39,24 @@ function VideoDemo() {
         )}
       </div>
 
-      {/* 動画補足キャプション + マスコット */}
+      {/* 動画補足キャプション(マスコットのみ、中央寄せ)
+          ※ 手順ステップのチップは削除。詳細な導入手順は
+             ページ下部の WORKFLOW セクションに集約されているため、
+             ここでは「動画を見せる」役割に純化する。 */}
       <div className="video-demo__footer" style={{
-        marginTop: 24,
+        marginTop: 32,
         maxWidth: 1000,
-        margin: '24px auto 0',
+        margin: '32px auto 0',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: 24,
+        justifyContent: 'center',
       }}>
-        <div className="video-demo__mascot" style={{ flexShrink: 0 }}>
-          <Mascot
-            dir="right"
-            size={110}
-            bubble={<>アプリの中では<br/>ボクが案内するよ!</>}
-            bubbleSide="right"
-          />
-        </div>
-        <div className="video-demo__chips" style={{
-          display: 'flex',
-          justifyContent: 'center',
-          gap: 12,
-          flexWrap: 'wrap',
-          flex: 1,
-        }}>
-          {['良品1枚を登録', 'ワークをセット', '判定 & NG可視化'].map((t, i) => (
-            <span key={i} className="chip" style={{ background: '#fff' }}>
-              <span className="num" style={{ color: '#FE5E32', fontWeight: 800, marginRight: 4 }}>{i + 1}</span>
-              {t}
-            </span>
-          ))}
-        </div>
+        <Mascot
+          dir="right"
+          size={110}
+          bubble={<>アプリの中では<br/>ボクが案内するよ!</>}
+          bubbleSide="right"
+        />
       </div>
     </div>
   );
