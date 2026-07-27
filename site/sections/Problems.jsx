@@ -71,11 +71,12 @@ function ProblemsA() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+        gap: 24,
       }}>
-        <div style={{ fontSize: 22, fontWeight: 700 }}>
+        <div className="problems-cta-bar__text" style={{ fontSize: 22, fontWeight: 700 }}>
           1つでも当てはまるなら、<span style={{ color: '#FE5E32' }}>ミエルン</span>が解決します。
         </div>
-        <button className="btn-primary">無料デモで確かめる →</button>
+        <button className="btn-primary problems-cta-bar__cta">無料デモで確かめる →</button>
       </div>
     </div>
   );

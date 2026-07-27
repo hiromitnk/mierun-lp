@@ -57,8 +57,23 @@
 .mierun p { margin: 0; }
 .mierun h1, .mierun h2, .mierun h3, .mierun h4 { margin: 0; font-weight: 700; line-height: 1.3; letter-spacing: 0.02em; }
 .mierun button { font-family: var(--ff-jp); cursor: pointer; border: none; }
-.mierun .en { font-family: var(--ff-en); letter-spacing: 0.12em; }
-.mierun .num { font-family: var(--ff-en); font-feature-settings: "tnum"; }
+/* 英字は Inter。日本語(Zen Kaku Gothic New)と混在した時の x-height ズレを font-size-adjust で吸収し、
+   垂直位置は line-height を親から継承 + baseline 揃えで整える。 */
+.mierun .en {
+  font-family: var(--ff-en);
+  letter-spacing: 0.12em;
+  font-size-adjust: 0.52;   /* Zen Kaku の x-height に合わせて Inter を光学的に揃える */
+  font-feature-settings: "cv11", "ss01";
+  vertical-align: baseline;
+  line-height: inherit;
+}
+.mierun .num {
+  font-family: var(--ff-en);
+  font-feature-settings: "tnum", "cv11";
+  font-size-adjust: 0.52;
+  vertical-align: baseline;
+  line-height: inherit;
+}
 
 /* Common utilities */
 .mierun .eyebrow {
@@ -68,6 +83,9 @@
   letter-spacing: 0.24em;
   color: var(--c-orange);
   text-transform: uppercase;
+  line-height: 1.4;
+  font-size-adjust: 0.52;
+  vertical-align: baseline;
 }
 .mierun .btn-primary {
   display: inline-flex;

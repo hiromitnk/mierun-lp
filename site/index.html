@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="styles/tokens.css?v=20260727b">
 <style>
   /* ============================================
      body : 明るめのヘアライン仕上げ金属テクスチャ
@@ -404,21 +404,26 @@
       padding: 6px !important;
     }
 
-    /* ③ Problems CTA バー (「1つでも当てはまるなら」) を縦積みに
-       ※ 属性セレクタは React のstyle正規化で当たらないので専用クラスで指定 */
+    /* ③ Problems CTA バー (「1つでも当てはまるなら」) を SP では縦積みに
+       ※ 属性セレクタは React のstyle正規化で当たらないので専用クラスで指定
+       ※ インラインstyle の justify-content: space-between も明示上書き */
     .mierun .problems-cta-bar {
       flex-direction: column !important;
       align-items: stretch !important;
+      justify-content: center !important;
       gap: 18px !important;
       text-align: center;
       padding: 24px 20px !important;
     }
-    .mierun .problems-cta-bar > div {
+    .mierun .problems-cta-bar__text {
       text-align: center;
+      font-size: 18px !important;
+      line-height: 1.6 !important;
     }
-    .mierun .problems-cta-bar .btn-primary {
-      width: 100%;
-      justify-content: center;
+    .mierun .problems-cta-bar__cta {
+      width: 100% !important;
+      justify-content: center !important;
+      align-self: stretch;
     }
 
     /* ④ Enclosure 標準サイズのカード: デモバッジをタグバーの下(=筐体の上)へ移動
@@ -627,12 +632,57 @@
       letter-spacing: 0.02em !important;
     }
 
+    /* ⑯ マスコット関連のSP調整 */
+    /* HeroC: マスコット + CTAボタン群を縦積みに */
+    .hero-c-cta-wrap {
+      flex-direction: column !important;
+      gap: 20px !important;
+    }
+    .hero-c-mascot .mascot img { height: 110px !important; }
+    .hero-c-mascot .mascot__bubble { max-width: 180px !important; font-size: 14px !important; }
+
+    /* VideoDemo: マスコット + chipsを縦積みに */
+    .video-demo__footer {
+      flex-direction: column !important;
+      gap: 20px !important;
+      align-items: center !important;
+    }
+    .video-demo__mascot .mascot img { height: 90px !important; }
+    .video-demo__mascot .mascot__bubble { max-width: 180px !important; font-size: 14px !important; }
+    .video-demo__chips { justify-content: center !important; }
+
+    /* CtaB: マスコットは小さめ、フォーム上に */
+    .cta-b__mascot { display: flex; justify-content: center; margin-top: 20px !important; }
+    .cta-b__mascot .mascot img { height: 100px !important; }
+    .cta-b__mascot .mascot__bubble { max-width: 180px !important; font-size: 14px !important; }
+
+    /* ⑰ VideoDemoセクション自体のpadding SP調整 */
+    .video-demo { padding: 56px 16px !important; }
+    .video-demo__frame { border-radius: 14px !important; }
+
     /* ⑮ CtaB (FREE TRIAL) の padding を SP で詰める */
     .cta-b__card {
       padding: 24px 20px !important;
+      gap: 24px !important;
+      /* grid が縦積みになった時に子(左右カラム)がはみ出さないように */
+      min-width: 0;
     }
+    .cta-b__card > * { min-width: 0; }
     .cta-b__form-wrap {
       padding: 20px 16px !important;
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    /* フォーム入力欄を親幅にきっちり収める(はみ出し防止) */
+    .cta-b__form-wrap input,
+    .cta-b__form-wrap select,
+    .cta-b__form-wrap textarea,
+    .cta-b__form-wrap button {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      box-sizing: border-box !important;
     }
     .cta-b__lead {
       font-size: 15px !important;
@@ -651,16 +701,17 @@
 </head>
 <body>
 <div id="root"></div>
-<script type="text/babel" src="tweaks_panel.jsx?v=20260708c"></script>
-<script type="text/babel" src="sections/Common.jsx?v=20260708c"></script>
-<script type="text/babel" src="sections/Heroes.jsx?v=20260708c"></script>
-<script type="text/babel" src="sections/EventBanner.jsx?v=20260708c"></script>
-<script type="text/babel" src="sections/Problems.jsx?v=20260708c"></script>
-<script type="text/babel" src="sections/Features.jsx?v=20260708c"></script>
-<script type="text/babel" src="sections/Enclosure.jsx?v=20260708c"></script>
-<script type="text/babel" src="sections/Benefits.jsx?v=20260708c"></script>
-<script type="text/babel" src="sections/Flow.jsx?v=20260708c"></script>
-<script type="text/babel" src="sections/FaqCta.jsx?v=20260708c"></script>
+<script type="text/babel" src="tweaks_panel.jsx?v=20260727b"></script>
+<script type="text/babel" src="sections/Common.jsx?v=20260727b"></script>
+<script type="text/babel" src="sections/Heroes.jsx?v=20260727b"></script>
+<script type="text/babel" src="sections/EventBanner.jsx?v=20260727b"></script>
+<script type="text/babel" src="sections/Problems.jsx?v=20260727b"></script>
+<script type="text/babel" src="sections/Features.jsx?v=20260727b"></script>
+<script type="text/babel" src="sections/VideoDemo.jsx?v=20260727b"></script>
+<script type="text/babel" src="sections/Enclosure.jsx?v=20260727b"></script>
+<script type="text/babel" src="sections/Benefits.jsx?v=20260727b"></script>
+<script type="text/babel" src="sections/Flow.jsx?v=20260727b"></script>
+<script type="text/babel" src="sections/FaqCta.jsx?v=20260727b"></script>
 <script type="text/babel" data-presets="env,react">
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "buttonSize": "lg",
@@ -711,11 +762,12 @@ function MierunStitched() {
         <div id="event"><EventBannerDxpo /></div>
         <div className="sec-alt" id="problems"><ProblemsA /></div>
         <div className="sec-base" id="features"><FeaturesA /></div>
-        <div className="sec-alt" id="enclosure"><EnclosureSection /></div>
-        <div className="sec-base" id="benefits"><BenefitsA /></div>
+        <div className="sec-alt" id="demo"><VideoDemo /></div>
+        <div className="sec-base" id="enclosure"><EnclosureSection /></div>
+        <div className="sec-alt" id="benefits"><BenefitsA /></div>
         <div className="sec-base" id="flow"><FlowB /></div>
-        <div className="sec-base" id="faq"><FaqSection /></div>
-        <div className="sec-alt" id="contact"><CtaB /></div>
+        <div className="sec-alt" id="faq"><FaqSection /></div>
+        <div className="sec-base" id="contact"><CtaB /></div>
         <div className="mierun"><SiteFooter /></div>
       </div>
       <TweaksPanel title="Tweaks">

@@ -261,9 +261,23 @@ function HeroC() {
           </div>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 56, justifyContent: 'center', alignItems: 'center', maxWidth: 340, marginLeft: 'auto', marginRight: 'auto' }}>
-          <button className="btn-primary" style={{ width: '100%' }}>無料デモを予約する →</button>
-          <button className="btn-dark" style={{ width: '100%' }}>資料をダウンロード</button>
+        {/* CTAブロック + マスコット */}
+        <div className="hero-c-cta-wrap" style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          gap: 32, marginTop: 56,
+        }}>
+          <div className="hero-c-mascot" style={{ flexShrink: 0 }}>
+            <Mascot
+              dir="right"
+              size={140}
+              bubble={<>まずは<br/>お試しください!</>}
+              bubbleSide="right"
+            />
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14, maxWidth: 340, width: '100%' }}>
+            <button className="btn-primary" style={{ width: '100%' }}>無料デモを予約する →</button>
+            <button className="btn-dark" style={{ width: '100%' }}>資料をダウンロード</button>
+          </div>
         </div>
       </section>
     </div>

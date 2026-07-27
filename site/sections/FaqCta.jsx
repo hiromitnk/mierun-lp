@@ -3,9 +3,9 @@ function FaqSection() {
   const items = [
     { q: '本当に良品サンプル1枚で運用開始できますか?', a: 'はい。AIが良品画像から特徴を抽出し、基準を自動で学習します。複雑な設定や教師データの作成は不要です。多品種・小ロットの板金加工現場での実運用を想定して設計されています。' },
     { q: 'クラウド環境は必要ですか?', a: '不要です。エッジ動作型のため、工場内のローカル環境で完結します。外部ネットワーク接続を制限している現場でもそのままご利用いただけます。' },
-    { q: '対応できる検査対象のサイズや種類は?', a: '縦横3〜30cmの板金加工品(プレス・溶接・切断等)を中心に対応。大型ワーク用の筐体もご用意しています。具体的な対応可否はサンプルでのご確認が可能です。' },
+    { q: '対応できる検査対象のサイズや種類は?', a: '縦横3〜50cmの板金加工品(プレス・溶接・切断等)を中心に対応。大型ワーク用の筐体もご用意しています。具体的な対応可否はサンプルでのご確認が可能です。' },
     { q: '導入までどれくらいの期間がかかりますか?', a: '最短2週間で導入完了。実機での無料デモ、2週間のPoC運用、本導入というステップで進めるのが一般的です。' },
-    { q: '既存の検査ラインに組み込めますか?', a: 'はい。専用筐体は独立した検査ステーションとして設置できます。カメラモジュールのみの提供にも対応可能ですので、既存ラインへの組込みもご相談ください。' },
+    { q: '既存の検査ラインに組み込めますか?', a: 'はい。専用筐体は独立した検査ステーションとして設置できます。フレームレートや設置スペースなど現場の制約に合わせてご相談ください。' },
     { q: '操作研修はどの程度必要ですか?', a: '約30分です。専門知識のない現場担当者でも、品番選択 → ワーク設置 → クリックの3ステップで運用できる設計になっています。' },
   ];
   return (
@@ -20,12 +20,12 @@ function FaqSection() {
             border: '1px solid #efefef',
           }}>
             <summary style={{ display: 'flex', alignItems: 'flex-start', gap: 16, cursor: 'pointer', listStyle: 'none' }}>
-              <span style={{ fontFamily: 'Inter', fontWeight: 800, color: '#FE5E32', fontSize: 20, lineHeight: 1.4, whiteSpace: 'nowrap', flexShrink: 0 }}>Q.</span>
+              <span style={{ fontFamily: 'Inter', fontWeight: 800, color: '#FE5E32', fontSize: 20, lineHeight: 1.4 }}>Q.</span>
               <span style={{ flex: 1, fontSize: 20, fontWeight: 700, color: '#0E0A2E', lineHeight: 1.5 }}>{it.q}</span>
               <span style={{ fontSize: 24, color: '#7B768F', lineHeight: 1 }}>+</span>
             </summary>
             <div style={{ marginTop: 18, paddingLeft: 36, display: 'flex', gap: 16 }}>
-              <span style={{ fontFamily: 'Inter', fontWeight: 800, color: '#203954', fontSize: 20, lineHeight: 1.4, whiteSpace: 'nowrap', flexShrink: 0 }}>A.</span>
+              <span style={{ fontFamily: 'Inter', fontWeight: 800, color: '#203954', fontSize: 20, lineHeight: 1.4 }}>A.</span>
               <p style={{ fontSize: 19, color: '#4A4664', lineHeight: 1.9 }}>{it.a}</p>
             </div>
           </details>
@@ -126,7 +126,7 @@ function CtaB() {
         gap: 56,
         alignItems: 'center',
       }}>
-        <div>
+        <div className="cta-b__intro">
           <div className="eyebrow">FREE TRIAL</div>
           <h2 className="cta-b__title" style={{ fontSize: 42, marginTop: 16, lineHeight: 1.3, color: '#203954' }}>
             <span style={{ color: '#FE5E32' }}>デモ機</span>を、<br/>
@@ -136,10 +136,18 @@ function CtaB() {
             簡単さも、精度も、<strong>貴社の現場で実際にお試しください。</strong><br/>
             2週間PoC・見積り相談・ご質問だけでも歓迎します。
           </p>
+          <div className="cta-b__mascot" style={{ marginTop: 32 }}>
+            <Mascot
+              dir="left"
+              size={130}
+              bubble={<>ご連絡<br/>お待ちしてます!</>}
+              bubbleSide="left"
+            />
+          </div>
         </div>
-        <div className="cta-b__form-wrap" style={{ background: '#f0f0f0', borderRadius: 20, padding: 32 }}>
+        <div className="cta-b__form-wrap" style={{ background: '#f0f0f0', borderRadius: 20, padding: 32, minWidth: 0 }}>
           <div style={{ fontSize: 16, fontWeight: 700, color: '#203954', marginBottom: 16 }}>お問い合わせフォーム</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, minWidth: 0 }}>
             <input placeholder="貴社名" style={inputStyle} />
             <input placeholder="ご担当者名" style={inputStyle} />
             <input placeholder="メールアドレス" style={inputStyle} />
@@ -171,6 +179,10 @@ const inputStyle = {
   fontFamily: 'Zen Kaku Gothic New, sans-serif',
   color: '#0E0A2E',
   outline: 'none',
+  width: '100%',
+  maxWidth: '100%',
+  minWidth: 0,
+  boxSizing: 'border-box',
 };
 
 Object.assign(window, { FaqSection, CtaA, CtaB });

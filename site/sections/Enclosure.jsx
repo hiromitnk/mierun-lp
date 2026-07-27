@@ -9,7 +9,7 @@ function EnclosureSection() {
       tagJp: '標準サイズ',
       dims: { w: 300, d: 300, h: 430 },
       label: '300 × 300 × 430 mm',
-      use: '縦横3〜30cmの板金加工品。プレス・溶接・切断品など、多くの現場で標準的に使われるサイズ。',
+      use: 'プレス・溶接・切断品など、多くの現場で標準的に使われるサイズ。ライン横に置いてすぐ運用開始。',
       features: ['カメラ・照明・撮影台 一体型', '電源を入れるだけで撮影環境が完成', 'ライン横にそのまま設置可能'],
       isDemo: true,
       // 図面の相対比率(高さに対しての幅)
@@ -35,7 +35,7 @@ function EnclosureSection() {
       <SectionHead
         eyebrow="HARDWARE — ENCLOSURE"
         title="2サイズから選べる、専用筐体。"
-        sub="カメラ・照明・撮影台が一体になった専用筐体。ライン横に置くだけで撮影環境が固定され、誰が撮っても安定したデータになります。"
+        sub={<><strong style={{ color: '#203954' }}>縦横3cm〜50cmの板金加工品の検品に対応。</strong><br/>カメラ・照明・撮影台が一体になった専用筐体。ライン横に置くだけで撮影環境が固定され、誰が撮っても安定したデータになります。</>}
         align="center"
       />
 
@@ -73,15 +73,6 @@ function EnclosureSection() {
         ))}
       </div>
 
-      <p style={{
-        marginTop: 28,
-        textAlign: 'center',
-        fontSize: 14,
-        color: '#7B768F',
-        lineHeight: 1.7,
-      }}>
-        ※ カメラモジュール単体のご提供にも対応可能です。既存ラインへの組込みもご相談ください。
-      </p>
     </div>
   );
 }
@@ -152,15 +143,6 @@ function EnclosureCard({ spec }) {
         }}>
           DRAWING NO. {isDemo ? 'MR-ENC-300' : 'MR-ENC-800'}
         </div>
-        {/* スケール (右上) */}
-        <div style={{
-          position: 'absolute', top: 16, right: 20,
-          fontFamily: 'Inter', fontSize: 10, color: '#7B768F',
-          letterSpacing: '0.16em', fontWeight: 700,
-        }}>
-          SCALE 1 : {isDemo ? '5' : '10'}
-        </div>
-
         <EnclosureDrawing spec={spec} accent={accent} />
 
         {/* 下部: タイトル(寸法) */}

@@ -130,6 +130,89 @@ function SectionHead({ eyebrow, title, sub, align = 'left', dark = false }) {
   );
 }
 
+// ==========================================================
+// マスコット(操作サポート役キャラクター)
+// - dir: 'left' | 'right' … キャラの手が上がっている方向(見る人視点)
+//   HeroCなど画面右下に置くなら 'left'(左を指す=Before/Afterを指し示す)
+// - size: 高さ px。デフォルト120
+// - bubble: 吹き出しに入れる文言。省略で吹き出し非表示
+// - bubbleSide: 吹き出しをキャラの左右どちらに出すか。デフォルトは dir と反対側
+// - style: 外側の position 調整用に追加スタイルを受ける
+// ==========================================================
+function Mascot({
+  dir = 'right',
+  size = 120,
+  bubble = null,
+  bubbleSide,
+  style = {},
+}) {
+  const src = dir === 'left' ? 'assets/character-left.png' : 'assets/character-right.png';
+  const side = bubbleSide || (dir === 'left' ? 'right' : 'left');
+  const alt = 'ミエルンのマスコットキャラクター(操作サポート役)';
+
+  return (
+    <div className="mascot" style={{
+      display: 'inline-flex',
+      alignItems: 'flex-end',
+      gap: 12,
+      flexDirection: side === 'left' ? 'row-reverse' : 'row',
+      ...style,
+    }}>
+      <img
+        src={src}
+        alt={alt}
+        style={{
+          height: size,
+          width: 'auto',
+          display: 'block',
+          filter: 'drop-shadow(0 8px 16px rgba(32,57,84,0.18))',
+          flexShrink: 0,
+          userSelect: 'none',
+          WebkitUserDrag: 'none',
+        }}
+        draggable={false}
+      />
+      {bubble && (
+        <div className="mascot__bubble" style={{
+          position: 'relative',
+          background: '#FFF3D6',
+          color: '#203954',
+          border: '2px solid #203954',
+          borderRadius: 16,
+          padding: '12px 16px',
+          fontSize: 15,
+          fontWeight: 700,
+          lineHeight: 1.5,
+          maxWidth: 220,
+          marginBottom: size * 0.15,
+          boxShadow: '0 4px 0 rgba(32,57,84,0.12)',
+        }}>
+          {bubble}
+          {/* 吹き出しの尻尾 */}
+          <span style={{
+            position: 'absolute',
+            bottom: 16,
+            [side === 'left' ? 'right' : 'left']: -10,
+            width: 0, height: 0,
+            borderTop: '8px solid transparent',
+            borderBottom: '8px solid transparent',
+            [side === 'left' ? 'borderLeft' : 'borderRight']: '10px solid #203954',
+          }} />
+          <span style={{
+            position: 'absolute',
+            bottom: 16,
+            [side === 'left' ? 'right' : 'left']: -7,
+            width: 0, height: 0,
+            borderTop: '7px solid transparent',
+            borderBottom: '7px solid transparent',
+            [side === 'left' ? 'borderLeft' : 'borderRight']: '9px solid #FFF3D6',
+          }} />
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ヘッダー(全案共通の上部ナビ)
 // PC: ロゴ + ナビ4項目 + CTA
 // SP (767px以下): ロゴ + CTAのみ
@@ -143,8 +226,8 @@ function SiteHeader({ dark = false }) {
       <nav className="site-header__nav">
         {[
           { label: '特徴', href: '#features' },
+          { label: 'デモ動画', href: '#demo' },
           { label: '導入フロー', href: '#flow' },
-          { label: '料金', href: '#contact' },
           { label: 'よくある質問', href: '#faq' },
         ].map(item => (
           <a key={item.label} href={item.href} className="site-header__link">{item.label}</a>
@@ -172,8 +255,8 @@ function SiteFooter() {
           {[
             { title: 'Product', items: [
               { label: '特徴', href: '#features' },
+              { label: 'デモ動画', href: '#demo' },
               { label: '導入フロー', href: '#flow' },
-              { label: '料金プラン', href: '#contact' },
               { label: '比較表', href: '#benefits' },
             ]},
             { title: 'Support', items: [
@@ -209,4 +292,4 @@ function SiteFooter() {
   );
 }
 
-Object.assign(window, { MierunLogo, InspectionPreview, SectionHead, SiteHeader, SiteFooter });
+Object.assign(window, { MierunLogo, InspectionPreview, SectionHead, SiteHeader, SiteFooter, Mascot });
