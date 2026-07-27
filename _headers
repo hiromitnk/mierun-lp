@@ -1,0 +1,27 @@
+# Cloudflare Pages ヘッダー設定
+# https://developers.cloudflare.com/pages/configuration/headers/
+
+# HTML はキャッシュ短め (更新が反映されやすいように)
+/*.html
+  Cache-Control: public, max-age=300, must-revalidate
+
+/
+  Cache-Control: public, max-age=300, must-revalidate
+
+# JSX / CSS は中期
+/sections/*
+  Cache-Control: public, max-age=3600
+/styles/*
+  Cache-Control: public, max-age=3600
+/tweaks_panel.jsx
+  Cache-Control: public, max-age=3600
+
+# 画像・3Dモデルは長期キャッシュ (ファイル名変更で更新)
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# セキュリティヘッダー
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
