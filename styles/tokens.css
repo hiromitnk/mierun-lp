@@ -172,6 +172,16 @@
   .hero-c-title { font-size: 36px !important; }
 }
 
+/* HeroC のブランドロゴ(チップ〜タイトルの間) - SP では少し詰める */
+@media (max-width: 640px) {
+  .hero-c-logo {
+    margin-top: 20px !important;
+    margin-bottom: 0 !important;
+    transform: scale(0.72);
+    transform-origin: center top;
+  }
+}
+
 /* フッターリンク + ヘッダーナビ ホバー */
 .footer-link:hover { opacity: 1 !important; color: var(--c-orange) !important; }
 /* ナビのテキストリンクのみ orange ホバー(btn-primary は除外) */

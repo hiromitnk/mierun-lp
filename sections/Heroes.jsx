@@ -207,13 +207,17 @@ function HeroC() {
           <span style={{ width: 8, height: 8, background: '#B8CE52', borderRadius: '50%' }} />
           板金加工業のための AI外観検査
         </div>
+        {/* ブランドロゴ(チップ〜タイトルの間、中央配置) */}
+        <div className="hero-c-logo" style={{ marginTop: 28, marginBottom: 4, display: 'flex', justifyContent: 'center' }}>
+          <MierunLogo size={56} />
+        </div>
         <h1 className="hero-c-title" style={{
           fontSize: 64,
           lineHeight: 1.18,
-          marginTop: 24,
+          marginTop: 16,
           fontWeight: 800,
           color: '#203954',
-          margin: '24px auto 0',
+          margin: '16px auto 0',
           overflowWrap: 'break-word',
           wordBreak: 'keep-all',
         }}>
